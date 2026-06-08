@@ -30,6 +30,9 @@ def build_parser():
     delete_parser.add_argument('id', help='ID of the expense', type=int)
     delete_parser.set_defaults(func=delete_expense)
 
+    view_parser = subparser.add_parser('view', help='View expenses')
+    view_parser.set_defaults(func=view_expenses)
+
 def add_expense(args):
     return
 
@@ -37,4 +40,7 @@ def update_expense(args):
     return
 
 def delete_expense(args):
+    return
+
+def view_expenses(args):
     return
