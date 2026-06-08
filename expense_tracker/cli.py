@@ -41,8 +41,8 @@ def build_parser():
 def add_expense(args):
     expenses = storage.read_expenses()
     new_id = storage.get_next_id(expenses)
-    month = datetime.datetime.now().month
-    new_expense = Expense(new_id, args.title, args.description, args.amount, month)
+    date = datetime.datetime.now().month
+    new_expense = Expense(new_id, args.title, args.description, args.amount, date)
 
     expenses.append(new_expense)
     storage.save_expenses(expenses)
@@ -93,17 +93,18 @@ def view_expenses(args):
 
 def summarize_expenses(args):
     expenses = storage.read_expenses()
-    total = 0
-    if len(expenses) != 0:
-        if args.month is not None:
-            for expense in expenses:
-                if expense.month == args.month:
-                    total += expense.amount
-            print(f"Total expenses for month {args.month}: ${total:.2f}")
-        else:
-            for expense in expenses:
-                total += expense.amount
-            print(f"Total expenses: ${total:.2f}")
 
-    else:
+    if not expenses:
         print("No expenses found.")
+        return
+
+    if args.date is not None:
+        filtered = [expense for expense in expenses if expense.date == args.date]
+        if not filtered:
+            print(f"No expenses found for month {args.date}.")
+            return
+        total = sum(expense.amount for expense in filtered)
+        print(f"Total expenses for month {args.date}: ${total:.2f}")
+    else:
+        total = sum(expense.amount for expense in expenses)
+        print(f"Total expenses: ${total:.2f}")
