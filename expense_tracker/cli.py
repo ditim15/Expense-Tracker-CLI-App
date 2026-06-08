@@ -26,7 +26,15 @@ def build_parser():
     update_parser.add_argument('--amount', help='Amount of the expense', type=float)
     update_parser.set_defaults(func=update_expense)
 
+    delete_parser = subparser.add_parser('delete', help='Delete an expense')
+    delete_parser.add_argument('id', help='ID of the expense', type=int)
+    delete_parser.set_defaults(func=delete_expense)
+
 def add_expense(args):
     return
 
 def update_expense(args):
+    return
+
+def delete_expense(args):
+    return
