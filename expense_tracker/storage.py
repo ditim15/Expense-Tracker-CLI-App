@@ -13,7 +13,7 @@ def read_expenses():
 def save_expenses(expenses):
     expense_list = [expense.to_dict() for expense in expenses]
     with open(FILE, "w") as f:
-        json.dump(expenses, f, indent=4)
+        json.dump(expense_list, f, indent=4)
 
 def get_next_id(expenses):
     if not expenses:
