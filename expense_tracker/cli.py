@@ -74,7 +74,14 @@ def update_expense(args):
 
 
 def delete_expense(args):
-    return
+    expenses = storage.read_expenses()
+    expenses_length = len(expenses)
+    expenses = [expense for expense in expenses if expense.id != args.id]
+    if len(expenses) < expenses_length:
+        storage.save_expenses(expenses)
+        print(f"Expense {args.id} deleted successfully.")
+    else:
+        print(f"Expense {args.id} could not be found.")
 
 def view_expenses(args):
     return
