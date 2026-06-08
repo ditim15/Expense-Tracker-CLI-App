@@ -9,11 +9,9 @@ class Expense:
         self.date = date
 
     def __str__(self):
-        return (f"{'ID:':<5}{self.id:<10}, {'Expense Title:':<10} {self.title}\n"
-                f"{'Description:':<5} {self.description}\n"
-                f"{'Amount:':<10}${self.amount:>10.2f}\n"
-                f"{'Date:':<6}{self.date}\n"
-                f"{'-' * 40}")
+        return (f"[{self.id}] {self.title} - {'$' + f'{self.amount:.2f}':>10}\n"
+                f"    {self.description} | Month: {self.date}\n"
+                f"    {'-' * 36}")
 
     def to_dict(self):
         return {
