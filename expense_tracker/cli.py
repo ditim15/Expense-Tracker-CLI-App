@@ -84,7 +84,12 @@ def delete_expense(args):
         print(f"Expense {args.id} could not be found.")
 
 def view_expenses(args):
-    return
+    expenses = storage.read_expenses()
+    if len(expenses) == 0:
+        print("No expenses found.")
+    else:
+        for expense in expenses:
+            print(expense)
 
 def summarize_expenses(args):
     return
