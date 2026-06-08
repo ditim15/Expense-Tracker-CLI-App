@@ -1,6 +1,6 @@
 from datetime import datetime
 
-class expense:
+class Expense:
     def __init__(self, id, title, description, amount, date=datetime.now().month):
         self.id = id
         self.title = title
