@@ -24,6 +24,7 @@ def build_parser():
     update_parser.add_argument('--title', help='Title of the expense', type=str)
     update_parser.add_argument('--description', help='Description of the expense', type=str)
     update_parser.add_argument('--amount', help='Amount of the expense', type=float)
+    update_parser.add_argument('--month', help='Month of the expense', type=int)
     update_parser.set_defaults(func=update_expense)
 
     delete_parser = subparser.add_parser('delete', help='Delete an expense')
@@ -48,7 +49,29 @@ def add_expense(args):
     print(f"Added expense '{args.title}' to expense tracker.")
 
 def update_expense(args):
-    return
+    expenses = storage.read_expenses()
+    found = False
+    updated = False
+    for expense in expenses:
+        if expense.id == args.id:
+            if args.title is not None:
+                expense.title = args.title
+                updated = True
+            if args.description is not None:
+                expense.description = args.description
+                updated = True
+            if args.amount is not None:
+                expense.amount = args.amount
+                updated = True
+            found = True
+    if not found:
+        print(f"No expense with id {args.id} found.")
+    elif not updated:
+        print("Nothing was updated")
+    else:
+        storage.save_expenses(expenses)
+        print(f"Updated expense '{args.id}' successfully.")
+
 
 def delete_expense(args):
     return
