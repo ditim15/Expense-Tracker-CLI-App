@@ -38,7 +38,14 @@ def build_parser():
     summary_parser.set_defaults(func=summarize_expenses)
 
 def add_expense(args):
-    return
+    expenses = storage.read_expenses()
+    new_id = storage.get_next_id(expenses)
+    month = datetime.datetime.now().month
+    new_expense = Expense(new_id, args.title, args.description, args.amount, month)
+
+    expenses.append(new_expense)
+    storage.save_expenses(expenses)
+    print(f"Added expense '{args.title}' to expense tracker.")
 
 def update_expense(args):
     return
