@@ -33,6 +33,10 @@ def build_parser():
     view_parser = subparser.add_parser('view', help='View expenses')
     view_parser.set_defaults(func=view_expenses)
 
+    summary_parser = subparser.add_parser('summary', help='Show expenses summary')
+    summary_parser.add_argument('--month', help='Month of expenses to summarize (1-12)', type=int)
+    summary_parser.set_defaults(func=summarize_expenses)
+
 def add_expense(args):
     return
 
@@ -43,4 +47,7 @@ def delete_expense(args):
     return
 
 def view_expenses(args):
+    return
+
+def summarize_expenses(args):
     return
