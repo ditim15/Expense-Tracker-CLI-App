@@ -24,7 +24,6 @@ def build_parser():
     update_parser.add_argument('--title', help='Title of the expense', type=str)
     update_parser.add_argument('--description', help='Description of the expense', type=str)
     update_parser.add_argument('--amount', help='Amount of the expense', type=float)
-    update_parser.add_argument('--month', help='Month of the expense', type=int)
     update_parser.set_defaults(func=update_expense)
 
     delete_parser = subparser.add_parser('delete', help='Delete an expense')
@@ -37,6 +36,8 @@ def build_parser():
     summary_parser = subparser.add_parser('summary', help='Show expenses summary')
     summary_parser.add_argument('--month', help='Month of expenses to summarize (1-12)', type=int)
     summary_parser.set_defaults(func=summarize_expenses)
+
+    return parser
 
 def add_expense(args):
     expenses = storage.read_expenses()
@@ -99,7 +100,7 @@ def summarize_expenses(args):
         return
 
     if args.date is not None:
-        filtered = [expense for expense in expenses if expense.date == args.date]
+        filtered = [expense for expense in expenses if expense.date == args.month]
         if not filtered:
             print(f"No expenses found for month {args.date}.")
             return
