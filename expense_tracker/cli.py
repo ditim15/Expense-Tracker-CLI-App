@@ -99,13 +99,13 @@ def summarize_expenses(args):
         print("No expenses found.")
         return
 
-    if args.date is not None:
+    if args.month is not None:
         filtered = [expense for expense in expenses if expense.date == args.month]
         if not filtered:
-            print(f"No expenses found for month {args.date}.")
+            print(f"No expenses found for month {args.month}.")
             return
         total = sum(expense.amount for expense in filtered)
-        print(f"Total expenses for month {args.date}: ${total:.2f}")
+        print(f"Total expenses for month {args.month}: ${total:.2f}")
     else:
         total = sum(expense.amount for expense in expenses)
         print(f"Total expenses: ${total:.2f}")
