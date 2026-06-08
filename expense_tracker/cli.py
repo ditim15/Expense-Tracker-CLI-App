@@ -92,4 +92,18 @@ def view_expenses(args):
             print(expense)
 
 def summarize_expenses(args):
-    return
+    expenses = storage.read_expenses()
+    total = 0
+    if len(expenses) != 0:
+        if args.month is not None:
+            for expense in expenses:
+                if expense.month == args.month:
+                    total += expense.amount
+            print(f"Total expenses for month {args.month}: ${total:.2f}")
+        else:
+            for expense in expenses:
+                total += expense.amount
+            print(f"Total expenses: ${total:.2f}")
+
+    else:
+        print("No expenses found.")
