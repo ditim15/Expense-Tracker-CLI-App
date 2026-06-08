@@ -86,11 +86,11 @@ def delete_expense(args):
 
 def view_expenses(args):
     expenses = storage.read_expenses()
-    if len(expenses) == 0:
+    if not expenses:
         print("No expenses found.")
-    else:
-        for expense in expenses:
-            print(expense)
+        return
+    for expense in expenses:
+        print(expense)
 
 def summarize_expenses(args):
     expenses = storage.read_expenses()
